@@ -51,7 +51,8 @@ public class PrimitiveCalculator {
             track[i] = b;
         }
 
-        List<Integer> rs = new ArrayList<>(List.of(n));
+        List<Integer> rs = new ArrayList<>();
+        rs.add(n);
         int i = n;
         while (i != 1){
             rs.add(track[i]);

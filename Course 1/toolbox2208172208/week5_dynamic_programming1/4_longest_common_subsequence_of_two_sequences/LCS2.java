@@ -21,24 +21,23 @@ public class LCS2 {
     private static int lcs2(int[] a, int[] b) {
         //Write your code here
         int n = a.length, m = b.length;
-        int[][] rs = new int[n][m];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-
-                boolean check = a[i] == b[j];
-                if (i == 0 && j == 0) {
-                    rs[i][j] = check ? 1 : 0;
+        int[][] rs = new int[n + 1][m + 1];
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= m; j++) {
+                if (i == 0) {
+                    rs[i][j] = j;
+                } else if (j == 0) {
+                    rs[i][j] = i;
                 } else {
                     int temp = 0;
-                    if (i >= 1 && j >= 1) temp = Math.max(temp, rs[i - 1][j - 1]);
-                    if (i >= 1) temp = Math.max(temp, rs[i - 1][j]);
-                    if (j >= 1) temp = Math.max(temp, rs[i][j - 1]);
-                    rs[i][j] = check ? temp + 1 : temp;
+                    temp = a[i - 1] == b[j - 1] ? Math.max(temp, rs[i - 1][j - 1] + 1) : Math.max(temp, rs[i - 1][j - 1]);
+                    temp = Math.max(temp, rs[i - 1][j]);
+                    rs[i][j] = Math.max(temp, rs[i][j - 1]);
                 }
             }
         }
 //        printRs(rs, a, b);
-        return rs[n - 1][m - 1];
+        return rs[n][m];
     }
 
     public static void main(String[] args) {
