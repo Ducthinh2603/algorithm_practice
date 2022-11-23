@@ -70,7 +70,6 @@ public class PrimitiveCalculator {
         for (Integer x : sequence) {
             System.out.print(x + " ");
         }
-        primitive_calculate(n);
     }
 }
 
