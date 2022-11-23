@@ -24,11 +24,7 @@ public class LCS2 {
         int[][] rs = new int[n + 1][m + 1];
         for (int i = 0; i <= n; i++) {
             for (int j = 0; j <= m; j++) {
-                if (i == 0) {
-                    rs[i][j] = j;
-                } else if (j == 0) {
-                    rs[i][j] = i;
-                } else {
+                if (i > 0 && j > 0) {
                     int temp = 0;
                     temp = a[i - 1] == b[j - 1] ? Math.max(temp, rs[i - 1][j - 1] + 1) : Math.max(temp, rs[i - 1][j - 1]);
                     temp = Math.max(temp, rs[i - 1][j]);
@@ -53,8 +49,8 @@ public class LCS2 {
         for (int i = 0; i < m; i++) {
             b[i] = scanner.nextInt();
         }
-//        int[] a = new int[] {2, 7, 5};
-//        int[] b = new int[] {2, 5};
+//        int[] a = new int[] {1, 2, 3};
+//        int[] b = new int[] {3, 2, 1};
 
         System.out.println(lcs2(a, b));
     }
