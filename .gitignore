@@ -1,0 +1,7 @@
+./out
+**/.idea
+**/out
+**/*.xml
+**/*.iml
+.DS_Store
+**/**/**/*.iml
