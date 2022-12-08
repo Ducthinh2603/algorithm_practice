@@ -36,6 +36,10 @@ public class is_bst {
         int nodes;
         Node[] tree;
 
+        boolean solve() {
+            return true;
+        }
+
         void read() throws IOException {
             FastScanner in = new FastScanner();
             nodes = in.nextInt();

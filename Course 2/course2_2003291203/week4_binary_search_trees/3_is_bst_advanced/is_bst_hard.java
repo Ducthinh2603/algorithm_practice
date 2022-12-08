@@ -45,6 +45,10 @@ public class is_bst_hard {
             }
         }
 
+        boolean solve() {
+            return true;
+        }
+
         boolean isBinarySearchTree() {
           // Implement correct algorithm here
           return true;
