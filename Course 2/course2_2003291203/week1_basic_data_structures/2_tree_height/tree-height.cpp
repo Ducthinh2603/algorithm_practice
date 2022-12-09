@@ -5,6 +5,8 @@
 #include <sys/resource.h>
 #endif
 
+using std::vector;
+
 class Node;
 
 class Node {
