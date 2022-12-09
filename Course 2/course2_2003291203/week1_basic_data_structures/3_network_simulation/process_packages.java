@@ -1,11 +1,7 @@
-import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 class Request {
@@ -31,33 +27,34 @@ class Response {
 class Buffer {
     public Buffer(int size) {
         this.size_ = size;
-        this.timeSeries = new int[LIMIT];
+        this.finish_time_ = new LinkedList<>();
     }
 
     public Response Process(Request request) {
-        // write your code here
-        boolean dropped = false;
+        boolean dropped = true;
         int start_time = -1;
-        if (request.arrival_time > clock || (request.arrival_time < LIMIT &&
-                timeSeries[request.arrival_time] < this.size_)) {
 
-            dropped = true;
-            start_time = Math.max(request.arrival_time, clock);
-            this.clock = start_time + request.process_time;
-            for (int i = request.arrival_time; i < this.clock && i < LIMIT; i++) {
-                timeSeries[i]++;
+        while(!finish_time_.isEmpty()) {
+            int timestamp = finish_time_.peek();
+            if (request.arrival_time >= timestamp) {
+                finish_time_.poll();
+            } else {
+                break;
             }
-            if (this.clock < LIMIT && this.clock > 0)
-                timeSeries[this.clock] = timeSeries[this.clock - 1] - 1;
+        }
+        if (finish_time_.size() < this.size_){
+            dropped = false;
+            Optional<Integer> latest_timestamp = Optional.ofNullable(finish_time_.peekLast());
+            start_time = Math.max(request.arrival_time, latest_timestamp.orElse(0));
+            finish_time_.add(start_time + request.process_time);
         }
 
         return new Response(dropped, start_time);
     }
 
+
     private int size_;
-    private int[] timeSeries;
-    private int clock = 0;
-    final private int LIMIT = 1000000;
+    private LinkedList<Integer> finish_time_;
 }
 
 class process_packages {
