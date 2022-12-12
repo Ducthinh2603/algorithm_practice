@@ -20,10 +20,43 @@ public class StackWithMax {
         }
     }
 
+    static class MyStack{
+        Stack<Integer> mainStack = new Stack<>();
+        Stack<Integer> auxiliaryStack = new Stack<>();
+
+        public void push(Integer item) {
+            if (mainStack.isEmpty()) {
+                auxiliaryStack.push(item);
+            }
+            else {
+                int current = auxiliaryStack.peek();
+                int tempMin = current < item? item: current;
+                auxiliaryStack.push(tempMin);
+            }
+            mainStack.push(item);
+        }
+
+        public Optional<Integer> pop() {
+            if (mainStack.isEmpty()) {
+                return Optional.empty();
+            }
+            else {
+                auxiliaryStack.pop();
+                Integer item = mainStack.pop();
+                return Optional.of(item);
+            }
+        }
+
+        public Optional<Integer> max(){
+            return auxiliaryStack.isEmpty()? Optional.empty(): Optional.of(auxiliaryStack.peek());
+        }
+    }
+
     public void solve() throws IOException {
         FastScanner scanner = new FastScanner();
         int queries = scanner.nextInt();
-        Stack<Integer> stack = new Stack<Integer>();
+        MyStack stack = new MyStack();
+        List<Integer> rs = new ArrayList<>();
 
         for (int qi = 0; qi < queries; ++qi) {
             String operation = scanner.next();
@@ -33,9 +66,11 @@ public class StackWithMax {
             } else if ("pop".equals(operation)) {
                 stack.pop();
             } else if ("max".equals(operation)) {
-                System.out.println(Collections.max(stack));
+                rs.add(stack.max().orElse(-1));
             }
         }
+        rs.forEach(System.out::println);
+
     }
 
     static public void main(String[] args) throws IOException {
