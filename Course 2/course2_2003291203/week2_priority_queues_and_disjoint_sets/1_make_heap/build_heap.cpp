@@ -76,8 +76,12 @@ private:
             if (ind != k) {
                 swaps_.push_back(make_pair(k, ind));
                 swap(data_[k], data_[ind]);
+                k = ind;
             }
-            k = ind;
+            else {
+                break;
+            }
+
         } while (k <= m);
     }
 
