@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
@@ -29,8 +28,12 @@ public class MergingTables {
             rank = 0;
             parent = this;
         }
+
         Table getParent() {
             // find super parent and compress path
+            if (parent != this) {
+                parent = parent.getParent();
+            }
             return parent;
         }
     }
@@ -40,12 +43,25 @@ public class MergingTables {
     void merge(Table destination, Table source) {
         Table realDestination = destination.getParent();
         Table realSource = source.getParent();
-        if (realDestination == realSource) {
-            return;
+        if (realDestination != realSource) {
+            Table des = realDestination;
+            Table src = realSource;
+            if (realDestination.rank == realSource.rank) {
+                realSource.rank += 1;
+            }
+            else if (realDestination.rank > realSource.rank) {
+                des = realSource;
+                src = realDestination;
+
+            }
+            //update maximumNumberOfRows
+            src.numberOfRows += des.numberOfRows;
+            maximumNumberOfRows = Math.max(maximumNumberOfRows, src.numberOfRows);
+
+            //update realDestination to a leave.
+            des.parent = src;
+            des.numberOfRows = 0;
         }
-        // merge two components here
-        // use rank heuristic
-        // update maximumNumberOfRows
     }
 
     public void run() {
