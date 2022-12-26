@@ -36,14 +36,11 @@ public:
     Query readQuery(std::fstream &output) const {
         Query query;
         output >> query.type;
-        // std::cout << query.type << " ";
         if (query.type != "check") {
             output >> query.s;
-            // std::cout << query.s << "\n";
         }
         else {
             output >> query.ind;
-            // std::cout << query.ind << "\n";
         }
         return query;
     }
@@ -62,18 +59,8 @@ public:
         std::cout << (was_found ? "yes\n" : "no\n");
     }
 
-    void writeSearchResult(bool was_found, std::ofstream &out) const {
-        out << (was_found ? "yes\n" : "no\n");
-    }
-
     void processQuery(const Query& query) {
         if (query.type == "check") {
-            // use reverse order, because we append strings to the end
-            // this is naive implementation
-//            for (int i = static_cast<int>(elems.size()) - 1; i >= 0; --i)
-//                if (hash_func(elems[i]) == query.ind)
-//                    std::cout << elems[i] << " ";
-//            std::cout << "\n";
             vector<string> bucket = hash_table[query.ind];
             for (int i = bucket.size() - 1; i >= 0; i--) {
                 std::cout << bucket[i] << " ";
@@ -95,36 +82,6 @@ public:
         }
     }
 
-    void processQuery(const Query& query, std::ofstream &out) {
-        if (query.type == "check") {
-            // use reverse order, because we append strings to the end
-            // this is naive implementation
-//            for (int i = static_cast<int>(elems.size()) - 1; i >= 0; --i)
-//                if (hash_func(elems[i]) == query.ind)
-//                    std::cout << elems[i] << " ";
-//            std::cout << "\n";
-            vector<string> bucket = hash_table[query.ind];
-            for (int i = 0; i < bucket.size(); i++) {
-                out << bucket[i] << " ";
-            }
-            out << "\n";
-        } else {
-            int index = hash_func(query.s);
-            vector<string> bucket = hash_table[index];
-            vector<string>::iterator it = std::find(bucket.begin(), bucket.end(), query.s);
-
-            if (query.type == "find")
-                writeSearchResult(it != bucket.end(), out);
-            else if (query.type == "add") {
-                if (it == bucket.end())
-                    hash_table[index].push_back(query.s);
-            } else if (query.type == "del") {
-                if (it != bucket.end())
-                    hash_table[index].erase(it);
-            }
-        }
-    }
-
     void processQueries() {
         int n;
         cin >> n;
@@ -133,14 +90,10 @@ public:
     }
 
     void processQueries(std::fstream &output) {
-        // string file = "/Users/thdg/Personal/algorithm_practice/Course 2/course2_2003291203/week3_hash_tables/2_hash_chains/tests/06";
-        // std::ofstream out(file);
         int n;
         output >> n;
-        // log
         for (int i = 0; i < n; ++i)
             processQuery(readQuery(output));
-        // out.close();
     }
 };
 
@@ -156,7 +109,7 @@ void test() {
 }
 
 int main() {
-    test();
+    // test();
     std::ios_base::sync_with_stdio(false);
     int bucket_count;
     cin >> bucket_count;
