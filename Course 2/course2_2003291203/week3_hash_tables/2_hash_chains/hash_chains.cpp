@@ -98,7 +98,7 @@ public:
 };
 
 void test() {
-    string file = "/Users/thdg/Personal/algorithm_practice/Course 2/course2_2003291203/week3_hash_tables/2_hash_chains/tests/06";
+    string file = "D:\\My_project\\Data Structures and Algorithms Specialization\\algorithm_practice\\Course 2\\course2_2003291203\\week3_hash_tables\\2_hash_chains\\tests\\06";
     std::fstream output;
     output.open(file);
     int bucket_count;

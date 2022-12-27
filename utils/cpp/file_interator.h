@@ -44,12 +44,8 @@ public:
         return this->fileName;
     }
 
-    string getContents() {
-        string rs = "";
-        for (auto line: rawContents) {
-            rs += line + "\n";        
-        }
-        return rs;
+    vector<string> getContents() {
+        return this->rawContents;
     }
 
     FileInteractor* readLines() {
