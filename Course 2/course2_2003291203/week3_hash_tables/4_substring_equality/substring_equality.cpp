@@ -47,8 +47,6 @@ public:
 		long long c2 = (hash_m2[a + l] - hash_m2[a] * xtol_m2) % m2; 
 		long long d1 = (hash_m1[b + l] - hash_m1[b] * xtol_m1) % m1; 
 		long long d2 = (hash_m2[b + l] - hash_m2[b] * xtol_m2) % m2;
-		std::cout << c1 << " " <<  d1 << ": " << (c1 - d1) % m1 << "\n";
-		std::cout << c2 << " " <<  d2 << ": " << (c2 - d2) % m2 << "\n";
 		return (c1 - d1) % m1 == 0 && (c2 - d2) % m2 == 0;
 	}
 };
