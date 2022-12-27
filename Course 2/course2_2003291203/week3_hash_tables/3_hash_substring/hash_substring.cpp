@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <math.h>
-#include "../../../../utils/cpp/file_interator.h"
+// #include "../../../../utils/cpp/file_interator.h"
 
 using std::string;
 typedef unsigned long long ull;
@@ -14,14 +14,14 @@ struct Data {
     string pattern, text;
 };
 
-Data read_input(string fileName) {
-    Data data;
-    FileInteractor file = FileInteractor(fileName);
-    vector<string> contents = file.readLines()->getContents();
-    data.pattern = contents[0];
-    data.text = contents[1];
-    return data;
-}
+// Data read_input(string fileName) {
+//     Data data;
+//     FileInteractor file = FileInteractor(fileName);
+//     vector<string> contents = file.readLines()->getContents();
+//     data.pattern = contents[0];
+//     data.text = contents[1];
+//     return data;
+// }
 
 Data read_input() {
     Data data;
@@ -75,6 +75,6 @@ std::vector<int> get_occurrences(const Data& input) {
 int main() {
     std::ios_base::sync_with_stdio(false);
     string fileName = "D:\\My_project\\Data Structures and Algorithms Specialization\\algorithm_practice\\Course 2\\course2_2003291203\\week3_hash_tables\\3_hash_substring\\tests\\06";
-    print_occurrences(get_occurrences(read_input(fileName)));
+    print_occurrences(get_occurrences(read_input()));
     return 0;
 }
