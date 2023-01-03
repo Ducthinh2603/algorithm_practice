@@ -24,8 +24,8 @@ public:
 		long long t1 = 0;
 		long long t2 = 0;
 		for (int i = 1; i <= n; i++) {
-			t1 = (t1 * x + s[i - 1]) % m1;
-			t2 = (t2 * x + s[i - 1]) % m2;
+			t1 = ((t1 * x + s[i - 1]) % m1 + m1) % m1;
+			t2 = ((t2 * x + s[i - 1]) % m2 + m2) % m2;
 			hash_m1[i] = t1;
 			hash_m2[i] = t2;
 		}
@@ -40,14 +40,14 @@ public:
 		long long xtol_m2 = 1;
 
 		for (int i = 0; i < l; i++) {
-			xtol_m1 = (xtol_m1 * x) % m1;
-			xtol_m2 = (xtol_m2 * x) % m2;
+			xtol_m1 = ((xtol_m1 * x) % m1 + m1) % m1;
+			xtol_m2 = ((xtol_m2 * x) % m2 + m2) % m2;
 		}
-		long long c1 = (hash_m1[a + l] - hash_m1[a] * xtol_m1) % m1; 
-		long long c2 = (hash_m2[a + l] - hash_m2[a] * xtol_m2) % m2; 
-		long long d1 = (hash_m1[b + l] - hash_m1[b] * xtol_m1) % m1; 
-		long long d2 = (hash_m2[b + l] - hash_m2[b] * xtol_m2) % m2;
-		return (c1 - d1) % m1 == 0 && (c2 - d2) % m2 == 0;
+		long long c1 = ((hash_m1[a + l] - hash_m1[a] * xtol_m1) % m1 + m1) % m1; 
+		long long c2 = ((hash_m2[a + l] - hash_m2[a] * xtol_m2) % m2 + m2) % m2; 
+		long long d1 = ((hash_m1[b + l] - hash_m1[b] * xtol_m1) % m1 + m1) % m1; 
+		long long d2 = ((hash_m2[b + l] - hash_m2[b] * xtol_m2) % m2 + m2) % m2;
+		return c1 == d1 && c2 == d2;
 	}
 };
 

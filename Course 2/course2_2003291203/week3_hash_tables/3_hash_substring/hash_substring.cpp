@@ -8,6 +8,7 @@ using std::string;
 typedef unsigned long long ull;
 
 ull P = 1000000007;
+// ull P = 101;
 int x = 263;
 
 struct Data {
@@ -27,15 +28,14 @@ Data read_input() {
     Data data;
     std::cin >> data.pattern >> data.text;
     return data;
-}
+} 
 
 ull hash_function(string a) {
     ull hash = 0;
     for (int i = 0; i < a.length(); i++) {
         hash = (hash * x + a[i]) % P;
-
     }
-    return hash;
+    return (hash + P) % P;
 }
 
 ull* hash_text(string text, int l) {
@@ -47,8 +47,9 @@ ull* hash_text(string text, int l) {
     ull* rs = new ull[n - l + 1];
     rs[0] = hash_function(text.substr(0, l));
      for (int i = l; i < n; i++) {
-        ull hash = hash_function(text.substr(i - l + 1, l));
-        rs[i - l + 1] = (rs[i - l] * x + text[i] - (text[i - l] * xtol % P)) % P;
+        ull temp = hash_function(text.substr(i - l + 1, l));
+        rs[i - l + 1] = (rs[i - l] * x + text[i] - (text[i - l] * xtol) % P) % P;
+        if(rs[i - l + 1] < 0) rs[i - l + 1] += P;
     }
     return rs;
 }
@@ -66,7 +67,7 @@ std::vector<int> get_occurrences(const Data& input) {
 
     std::vector<int> ans;
     for (int i = 0; i <= t.size() - s.size(); ++i)
-        if (text_hash[i] == pattern_hash && t.substr(i, s.size()) == s)
+        if ((text_hash[i] - pattern_hash) % P == 0 && t.substr(i, s.size()) == s)
             ans.push_back(i);
     return ans;
 }
@@ -74,7 +75,7 @@ std::vector<int> get_occurrences(const Data& input) {
 
 int main() {
     std::ios_base::sync_with_stdio(false);
-    // string fileName = "D:\\My_project\\Data Structures and Algorithms Specialization\\algorithm_practice\\Course 2\\course2_2003291203\\week3_hash_tables\\3_hash_substring\\tests\\06";
+    // string fileName = "D:\\My_project\\Data Structures and Algorithms Specialization\\algorithm_practice\\Course 2\\course2_2003291203\\week3_hash_tables\\3_hash_substring\\tests\\0";
     print_occurrences(get_occurrences(read_input()));
     return 0;
 }
