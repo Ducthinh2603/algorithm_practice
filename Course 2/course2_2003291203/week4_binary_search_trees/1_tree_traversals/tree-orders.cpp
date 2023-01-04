@@ -27,28 +27,57 @@ public:
     }
   }
 
+  void inner_in_order(int ind, vector<int>& rs) {
+    if(left[ind] != -1) {
+      inner_in_order(left[ind], rs);
+    }
+    rs.push_back(key[ind]);
+    if(right[ind] != -1) {
+      inner_in_order(right[ind], rs);
+    }
+  }
 
   vector <int> in_order() {
     vector<int> result;
     // Finish the implementation
     // You may need to add a new recursive method to do that
-
+    inner_in_order(0, result);
     return result;
+  }
+
+  void inner_pre_order(int ind, vector<int>& rs) {
+    rs.push_back(key[ind]);
+    if(left[ind] != -1) {
+      inner_pre_order(left[ind], rs);
+    }
+    if(right[ind] != -1) {
+      inner_pre_order(right[ind], rs);
+    }
   }
 
   vector <int> pre_order() {
     vector<int> result;    
     // Finish the implementation
     // You may need to add a new recursive method to do that
-    
+    inner_pre_order(0, result);
     return result;
+  }
+
+  void inner_post_order(int ind, vector<int>& rs) {
+    if(left[ind] != -1) {
+      inner_post_order(left[ind], rs);
+    }
+    if(right[ind] != -1) {
+      inner_post_order(right[ind], rs);
+    }
+    rs.push_back(key[ind]);
   }
 
   vector <int> post_order() {
     vector<int> result;
     // Finish the implementation
     // You may need to add a new recursive method to do that
-    
+    inner_post_order(0, result);
     return result;
   }
 };
