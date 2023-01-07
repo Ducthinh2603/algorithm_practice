@@ -28,6 +28,8 @@ private:
 
 public:
 
+    ifstream fileStream;
+
     static string printVector(vector<string> contents) {
         string rs = "";
         for (auto line: contents) {
@@ -38,8 +40,15 @@ public:
 
     FileInteractor(string fileName) {
         this->fileName = fileName;
+        this->fileStream.open(fileName);
     }
 
+    ~FileInteractor() {
+        if(this->fileStream.is_open()) {
+            this->fileStream.close();
+        }
+    }
+    
     string getFileName() {
         return this->fileName;
     }

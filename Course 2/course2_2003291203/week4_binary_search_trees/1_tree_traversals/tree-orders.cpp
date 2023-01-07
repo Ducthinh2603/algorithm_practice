@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+// #include <string>
+// #include "../../../../utils/cpp/file_interator.h"
 #if defined(__unix__) || defined(__APPLE__)
 #include <sys/resource.h>
 #endif
@@ -9,6 +11,7 @@ using std::vector;
 using std::ios_base;
 using std::cin;
 using std::cout;
+// using std::string;
 
 class TreeOrders {
   int n;
@@ -26,6 +29,18 @@ public:
       cin >> key[i] >> left[i] >> right[i];
     }
   }
+
+  // void read(string file_name) {
+  //   FileInteractor file = FileInteractor(file_name);
+  //   file.fileStream >> n;
+  //   cout << n << "\n";
+  //   key.resize(n);
+  //   left.resize(n);
+  //   right.resize(n);
+  //   for (int i = 0; i < n; i++) {
+  //     file.fileStream >> key[i] >> left[i] >> right[i];
+  //   }
+  // }
 
   void inner_in_order(int ind, vector<int>& rs) {
     if(left[ind] != -1) {
@@ -95,6 +110,7 @@ void print(vector <int> a) {
 int main_with_large_stack_space() {
   ios_base::sync_with_stdio(0);
   TreeOrders t;
+  // t.read("D:\\My_project\\Data Structures and Algorithms Specialization\\algorithm_practice\\Course 2\\course2_2003291203\\week4_binary_search_trees\\1_tree_traversals\\tests\\21");
   t.read();
   print(t.in_order());
   print(t.pre_order());
