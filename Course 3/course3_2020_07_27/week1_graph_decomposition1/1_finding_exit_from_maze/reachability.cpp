@@ -7,7 +7,33 @@ using std::pair;
 
 int reach(vector<vector<int> > &adj, int x, int y) {
   //write your code here
-  return 0;
+  int rs = 0;
+  int n = adj.size();
+  bool* visited = new bool[n];
+  for (int i = 0; i < n; i++) {
+    visited[i] = false;
+  }
+  vector<int> stack;
+  stack.push_back(x);
+  while(rs == 0 && !stack.empty()) {
+    int ind = stack.back();
+    stack.pop_back();
+
+    visited[ind] = true;
+    int m = adj[ind].size();
+    for (int i = 0; i < m; i++) {
+      int temp = adj[ind][i];
+      if (temp == y) {
+        rs = 1;
+        break;
+      }
+      if (!visited[adj[ind][i]]) {
+        stack.push_back(temp);
+      }
+    }
+  }
+
+  return rs;
 }
 
 int main() {
