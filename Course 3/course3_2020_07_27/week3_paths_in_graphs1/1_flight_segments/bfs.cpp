@@ -6,8 +6,41 @@ using std::vector;
 using std::queue;
 
 int distance(vector<vector<int> > &adj, int s, int t) {
-  //write your code here
-  return -1;
+  int n = adj.size();
+  int rs = -1;
+
+  queue<int> q;
+  bool* visited = new bool[n]; 
+  int* dist = new int[n];
+
+  for (int i = 0; i < n; i++) {
+    visited[i] = false;
+    dist[i] = -1;
+  }
+
+  q.push(s);
+  visited[s] = true;
+  dist[s] = 0;
+
+  while(!q.empty() && rs == -1) {
+    int ind = q.front();
+    q.pop();
+    int current_layer = dist[ind] + 1;
+    for (int i = 0; i < adj[ind].size(); i++) {
+      int node = adj[ind][i];
+      if (node == t){
+        rs = current_layer;
+        break;
+      }
+
+      if (!visited[node]){
+        dist[node] = current_layer;
+        q.push(node);
+        visited[node] = true;
+      }
+    }
+  }
+  return rs;
 }
 
 int main() {
