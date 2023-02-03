@@ -52,6 +52,7 @@ void shortest_paths(vector<vector<int> > &adj, vector<vector<int> > &cost, int s
 
 
 int main() {
+  // This solution pass 28/36 :((
   int n, m, s;
   std::cin >> n >> m;
   vector<vector<int> > adj(n, vector<int>());
