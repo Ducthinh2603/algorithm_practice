@@ -11,7 +11,8 @@ public class Pair<T, R> {
     }
 
 
-    // Example
+    // Example:
+    // This comparator is for creating min Heap with PriorityQueue
     static Comparator<Pair<Integer, Long>> comparator = new Comparator<Pair<Integer,Long>>() {
         @Override
         public int compare(Pair<Integer, Long> a, Pair<Integer, Long> b){
