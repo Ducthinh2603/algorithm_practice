@@ -115,7 +115,7 @@ struct DisjointSets {
       if (merge(x, y)) {
         num_edges++;
         rs += e.second;
-        print(x, y);
+        // print(x, y);
       }
     }
     return rs;
