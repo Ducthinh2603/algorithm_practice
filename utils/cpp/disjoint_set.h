@@ -1,4 +1,5 @@
-#include<vector>
+#include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -45,3 +46,16 @@ struct DisjointSets {
 		}		
 	}
 };
+
+// An Example for min Heap
+typedef pair<int, long long> map;
+struct comparator {
+  bool operator() (
+    map const& a,
+    map const& b)
+    const
+  {
+    return a.second > b.second;
+  }
+};
+priority_queue<map, vector<map>, comparator > pq;

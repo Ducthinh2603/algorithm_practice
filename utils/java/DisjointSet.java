@@ -1,8 +1,6 @@
 package utils.java;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import utils.java.*;;
 public class DisjointSet {
     class DisjointSetElement {
         int parent;
@@ -23,13 +21,13 @@ public class DisjointSet {
             sets.set(i, new DisjointSetElement());
         }
     }
-    int getParent(int node) {
+    public int getParent(int node) {
         if(sets.get(node).parent != -1) {
             sets.get(node).parent = getParent(sets.get(node).parent);
         }
         return node;
     }
-    void merge(int destination, int source) {
+    public void merge(int destination, int source) {
         int realDestination = getParent(destination);
         int realSource = getParent(source);
         if (realDestination != realSource) {
@@ -47,3 +45,23 @@ public class DisjointSet {
         
     }
 }
+
+// Example for min Heap
+class Pair<T, R> {
+    T first;
+    R second;
+    public Pair(T x, R y) {
+        first = x;
+        second = y;
+    }
+    Comparator<Pair<Integer, Long>> comparator = new Comparator<Pair<Integer,Long>>() {
+        @Override
+        public int compare(Pair<Integer, Long> a, Pair<Integer, Long> b){
+            if (a.second > b.second) return 1;
+            else if (a.second < b.second) return -1;
+            else return 0;
+        }
+    };
+    PriorityQueue<Pair<Integer, Long>> pQueue = new PriorityQueue<>(1, comparator);
+}
+
