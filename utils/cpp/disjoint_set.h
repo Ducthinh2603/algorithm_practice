@@ -25,7 +25,7 @@ struct DisjointSets {
         if (sets[index].parent != -1) {
             sets[index].parent = getParent(sets[index].parent);
         }
-        return index;
+        return sets[index].parent;
 	}
 
 	void merge(int destination, int source) {
@@ -35,7 +35,7 @@ struct DisjointSets {
             int src = realSource;
             int des = realDestination;
 			if (sets[realDestination].rank == sets[realSource].rank) {
-                sets[realDestination].rank++;
+                sets[src].rank++;
             }
             else if(sets[realDestination].rank > sets[realSource].rank) {
                 src = realDestination;

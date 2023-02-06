@@ -25,7 +25,7 @@ public class DisjointSet {
         if(sets.get(node).parent != -1) {
             sets.get(node).parent = getParent(sets.get(node).parent);
         }
-        return node;
+        return sets.get(node).parent;
     }
     public void merge(int destination, int source) {
         int realDestination = getParent(destination);
