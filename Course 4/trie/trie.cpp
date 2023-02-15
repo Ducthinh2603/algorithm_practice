@@ -11,8 +11,22 @@ typedef map<char, int> edges;
 typedef vector<edges> trie;
 
 trie build_trie(vector<string> & patterns) {
-  trie t;
+  trie t(1, edges());
+  int current_num = 1;
   // write your code here
+  for (const auto & p : patterns) {
+    int next_ind = 0;
+    for (const auto & c : p) {
+      if (t[next_ind].count(c)) {
+        next_ind = t[next_ind][c];
+      } else {
+        t[next_ind][c] = current_num;
+        next_ind = current_num;
+        t.push_back(edges());
+        current_num++;
+      }
+    }
+  }
   return t;
 }
 
