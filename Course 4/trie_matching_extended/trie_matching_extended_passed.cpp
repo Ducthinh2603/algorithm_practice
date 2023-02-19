@@ -153,7 +153,7 @@ int main (void)
 	for (int i = 0; i < (int) ans.size (); i++)
 	{
 		cout << ans[i];
-		if (i + 1 < (int) ans.size ())
+		if (i + 1 < (int) ans.size ()){
 			cout << " ";
 		}
 		else
