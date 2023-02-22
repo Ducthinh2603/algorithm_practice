@@ -54,31 +54,30 @@ public:
     }
 };
 
-
 // Suffix Tree
 
-//Suffix Tree node
+// Suffix Tree node
 struct Node
+{
+    Node *suffixLink;
+    int s, t;
+    Node *next[5];
+    Node(int s, int t)
     {
-        Node *suffixLink;
-        int s, t;
-        Node *next[5];
-        Node(int s, int t)
-        {
-            this->s = s;
-            this->t = t;
-            this->suffixLink = NULL;
-            next[0] = NULL;
-            next[1] = NULL;
-            next[2] = NULL;
-            next[3] = NULL;
-            next[4] = NULL;
-        }
-        int length()
-        {
-            return this->t - this->s;
-        }
-    };
+        this->s = s;
+        this->t = t;
+        this->suffixLink = NULL;
+        next[0] = NULL;
+        next[1] = NULL;
+        next[2] = NULL;
+        next[3] = NULL;
+        next[4] = NULL;
+    }
+    int length()
+    {
+        return this->t - this->s;
+    }
+};
 
 class SuffixTree
 {
@@ -184,7 +183,6 @@ private:
     }
 
 public:
-
     SuffixTree(string text)
     {
         this->text = text;
@@ -222,7 +220,13 @@ public:
                         previousInternalNode->suffixLink = node;
                         previousInternalNode = node;
                     }
-                    startNode = node->suffixLink;
+                    // this will generate wrong answer.
+                    // startNode = node->suffixLink;
+
+                    // this generate the right answer but
+                    // it will be slower than exploit the usage of suffix link.
+                    // TODOs: think of a way to take advatages of suffix link.
+                    startNode = &root;
                     numLeafNode++;
                 }
             }
