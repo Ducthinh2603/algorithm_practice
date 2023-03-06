@@ -27,7 +27,7 @@ vector<int> prefixCompute(const string& pattern) {
     }
     rs[i] = border;
   }
-  print(rs);
+  // print(rs);
   return rs;
 }
 
@@ -68,7 +68,6 @@ int main() {
   cin >> pattern;
   cin >> text;
   vector<int> result = find_pattern(pattern, text);
-  print(result);
   for (int i = 0; i < result.size(); ++i) {
     printf("%d ", result[i]);
   }

@@ -12,13 +12,89 @@ using std::pair;
 using std::string;
 using std::vector;
 
+void count_sort(vector<int> &p, vector<int> &c, int k) {
+  int n = p.size();
+
+  // update p
+  vector<int> cnt(n);
+  for (auto x: c) {
+    cnt[x]++;
+  }
+
+  vector<int> pos(n);
+  pos[0] = 0;
+  for (int i = 1; i < n; i++) {
+    pos[i] = pos[i - 1] + cnt[i - 1];
+  }
+
+  vector<int> p_new(n);
+  for (auto x: p) {
+    p_new[pos[c[x]]] = x;
+    pos[c[x]]++;
+  }
+
+  p = p_new;
+
+  // update c
+  vector<int> c_new(n);
+
+  c_new[p[0]] = 0;
+  for (int i = 1; i < n; i++) {
+    if (c[p[i]] == c[p[i - 1]] && c[(p[i] + k) % n] == c[(p[i - 1] + k) % n]){
+      c_new[p[i]] = c_new[p[i - 1]];
+    }
+    else {
+      c_new[p[i]] = c_new[p[i - 1]] + 1;
+    }
+  }
+
+  c = c_new;
+}
+
+vector<int> suffix_array(const string &s) {
+  int n = s.size();
+  vector<int> p(n);
+  vector<int> c(n);
+  vector<pair<char, int> > a(n);
+
+  // init
+  for (int i = 0; i < n; i++) {
+    a[i] = make_pair(s[i], i);
+  }
+  sort(a.begin(), a.end());
+  for (int i = 0; i < n; i++) {
+    p[i] = a[i].second;
+  }
+  c[p[0]] = 0;
+  for (int i = 1; i < n; i++) {
+    if (a[i].first == a[i - 1].first){
+      c[p[i]] = c[p[i - 1]];
+    }
+    else {
+      c[p[i]] = c[p[i - 1]] + 1;
+    }
+  }
+
+  int k = 1;
+  while(k < n) {
+
+    for (int i = 0; i < n; i++) {
+      p[i] = (p[i] + n - k) % n;
+    }
+
+    count_sort(p, c, k);
+
+    k = 2*k;
+  }
+  return p;
+}
 // Build suffix array of the string text and
 // return a vector result of the same length as the text
 // such that the value result[i] is the index (0-based)
 // in text where the i-th lexicographically smallest
 // suffix of text starts.
 vector<int> BuildSuffixArray(const string& text) {
-  vector<int> result;
+  vector<int> result = suffix_array(text);
   // Implement this function yourself
   return result;
 }
